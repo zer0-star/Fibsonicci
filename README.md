@@ -44,10 +44,10 @@ Then, the outputs will be in hexadecimal, and fully-expanded.
 
 ## Generating runtime plots
 
-> **Note.** The runtime generator (in particular, its attempt to find the maximum Fibonacci number computable by a given algorithm within 1 second) is *highly nonscientific* and inaccurate.
+> **Note.** The runtime generator (in particular, its attempt to find the maximum Fibonacci number computable by a given algorithm within 1 second) is _highly nonscientific_ and inaccurate.
 > I made no effort to ensure that the data from the video is perfectly replicable!
 
-To generate the data for *all* algorithms, simply run
+To generate the data for _all_ algorithms, simply run
 
 ```bash
 make all-data
@@ -58,20 +58,19 @@ make all-data
 Large numbers are encoded as base-$`2^L`$ unsigned integers (using `vector`s), where $`L`$ depends on the algorithm of choice.
 This project includes the following implementations:
 
-| Algorithm | Runtime | Digit size ($`2^L`$) |
-|:---------:|:-------:|:--------------------:|
-| [Naive](#naive) | $`\Omega(\exp(n))`$ | $`2^{64}`$ |
-| ["Linear"](#linear) | $`O(n^2)`$ | $`2^{64}`$ |
-| [Simple matrix multiplication](#simple-matrix-multiplication) | $`O(n^2)`$ | $`2^{32}`$ |
-| [Fast exponentiation](#fast-exponentiation) | $`O(n^2)`$ | $`2^{32}`$ |
-| [Strassen matrix multiplication](#strassen-matrix-multiplication) | $`O(n^2)`$ | $`2^{32}`$ |
-| [Karatsuba multiplication](#karatsuba-multiplication) | $`O(n^{1.585})`$ | $`2^{32}`$ |
-| [DFT](#dft) | $`O(n^2)`$[^1] | $`2^8`$ |
-| [FFT](#fft) | $`O(n\log n)`$[^1] | $`2^8`$ |
-| [Binet formula](#binet-formula) | $`O(n\log n)`$[^1] | $`2^8`$ |
+|                             Algorithm                             |       Runtime       | Digit size ($`2^L`$) |
+| :---------------------------------------------------------------: | :-----------------: | :------------------: |
+|                          [Naive](#naive)                          | $`\Omega(\exp(n))`$ |      $`2^{64}`$      |
+|                        ["Linear"](#linear)                        |     $`O(n^2)`$      |      $`2^{64}`$      |
+|   [Simple matrix multiplication](#simple-matrix-multiplication)   |     $`O(n^2)`$      |      $`2^{32}`$      |
+|            [Fast exponentiation](#fast-exponentiation)            |     $`O(n^2)`$      |      $`2^{32}`$      |
+| [Strassen matrix multiplication](#strassen-matrix-multiplication) |     $`O(n^2)`$      |      $`2^{32}`$      |
+|       [Karatsuba multiplication](#karatsuba-multiplication)       |  $`O(n^{1.585})`$   |      $`2^{32}`$      |
+|                            [DFT](#dft)                            |   $`O(n^2)`$[^1]    |       $`2^8`$        |
+|                            [FFT](#fft)                            | $`O(n\log n)`$[^1]  |       $`2^8`$        |
+|                  [Binet formula](#binet-formula)                  | $`O(n\log n)`$[^1]  |       $`2^8`$        |
 
 [^1]: These algorithms eventually fail (due to exceeding floating-point precision) when `n` is sufficiently large (e.g., fails when `n >= 0x7f'ffff`).
-
 
 ## Naive
 
@@ -80,7 +79,7 @@ The "naïve" implementation is just the simple (non-memoised) recursive algorith
 ## Linear
 
 The "linear" implementation is the direct non-recursive implementation.
-Of course, the algorithm is not *actually* linear; the runtime is $`O(n^2)`$.
+Of course, the algorithm is not _actually_ linear; the runtime is $`O(n^2)`$.
 
 ## Simple matrix multiplication
 
@@ -141,3 +140,9 @@ More precisely, we compute the coefficient of $`\sqrt5`$ in the expansion of $`\
 Note that this computation can really be done in $`\mathbb{N}[\sqrt5]`$---and it is.
 
 Large integer multiplication is achieved with [FFTs](#fft), so suffers from the same precision limitation as the previous two algorithms.
+
+## Bostan-Mori
+
+This implementation uses the algorithm in p.11 of [^bm].
+
+[^bm]: Alin Bostan, & Ryuhei Mori. (2020). A Simple and Fast Algorithm for Computing the $N$-th Term of a Linearly Recurrent Sequence. https://arxiv.org/abs/2008.08822

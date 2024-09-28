@@ -40,7 +40,8 @@ IMPL = naive \
 	   matmul_karatsuba \
 	   matmul_dft \
 	   matmul_fft \
-	   field_ext
+	   field_ext \
+	   bostan_mori
 
 IMPL_OPT = $(IMPL:%=%.Og) $(IMPL:%=%.O3)
 
